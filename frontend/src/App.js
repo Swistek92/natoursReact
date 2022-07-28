@@ -7,8 +7,6 @@ const App = () => {
       <header>
         <img src={logo} className="App-logo" alt="logo" />
       </header>
-      <div>body</div>
-      <div>footer</div>
     </div>
   );
 };
