@@ -19,7 +19,7 @@ const reviewRouter = require('./routes/reviewRoutes');
 const bookingRouter = require('./routes/bookingRoutes');
 // const viewRouter = require('./routes/viewRoutes');
 //PUG
-// dotenv.config();
+dotenv.config();
 
 const app = express();
 

@@ -1,14 +1,17 @@
-import React from 'react';
-import logo from './logo.svg';
 import './App.css';
-const App = () => {
+import Header from './Components/Header/Header';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Main from './Components/Main/Main';
+import { Container } from 'react-bootstrap';
+function App() {
   return (
-    <div>
-      <header>
-        <img src={logo} className="App-logo" alt="logo" />
-      </header>
-    </div>
+    <>
+      <Header className="sticky-top" />
+      <Container className="mb-4">
+        <Main />
+      </Container>
+    </>
   );
-};
+}
 
 export default App;
