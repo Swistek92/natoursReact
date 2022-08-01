@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import { fomatCurrency } from '../../utilites/formatCurrency';
 const Item = ({ summary, name, price, imageCover }) => {
-  console.log(`/img/tours/${imageCover}`);
+  // console.log(`/img/tours/${imageCover}`);
   return (
     <div>
       <Card className="h-100 mx-1">

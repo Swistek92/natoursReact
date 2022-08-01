@@ -5,19 +5,25 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 const Header = () => {
+  const { user, isLoading, isError, isSuccess, message } = useSelector(
+    (state) => state.user
+  );
+
   return (
     <div className={styles.header}>
       <Navbar
         style={{
-          borderRadius: '10px',
           backgroundColor: 'rgba(96, 95, 95, 0.9)',
         }}
-        className="mx-3 sticky-top w-90 "
+        className="sticky-top"
         expand="lg"
       >
         <Container>
-          <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
+          <Navbar.Brand href="#home">
+            {user ? user.data.user.name : 'Tours'}
+          </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
@@ -26,11 +32,13 @@ const Header = () => {
                   Home
                 </Link>
               </Nav.Link>
-              <Nav.Link>
-                <Link className={styles.link} to="/login">
-                  Login
-                </Link>
-              </Nav.Link>
+              {!user && (
+                <Nav.Link>
+                  <Link className={styles.link} to="/login">
+                    Login
+                  </Link>
+                </Nav.Link>
+              )}
               <Nav.Link>
                 <Link className={styles.link} to="/register">
                   Register

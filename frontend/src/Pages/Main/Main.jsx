@@ -16,6 +16,7 @@ const Main = () => {
       try {
         setLoading(true);
         const res = await axios.get('/api/v1/tours');
+        // const res = await axios.get('http://localhost:3001/api/v1/tours');
         setState(res.data);
         setLoading(false);
       } catch (error) {
@@ -24,7 +25,7 @@ const Main = () => {
     };
     fetchData();
   }, []);
-  console.log(state.data.data);
+  // console.log(state.data.data);
   // console.log(state.data.map((e) => console.log(e)));
   let active = 2;
   let items = [];
@@ -42,7 +43,7 @@ const Main = () => {
         {!loading &&
           state.data.data &&
           state.data.data.map((tour) => {
-            return <Item {...tour} />;
+            return <Item key={tour.id} {...tour} />;
           })}
       </Row>
 
