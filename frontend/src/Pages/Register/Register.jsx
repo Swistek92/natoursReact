@@ -41,7 +41,7 @@ const Register = () => {
     }));
   };
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
 
     if (password !== confirmPassword) {
@@ -54,7 +54,9 @@ const Register = () => {
       password,
       passwordConfirm: confirmPassword,
     };
-    dispatch(register(userData));
+    await dispatch(register(userData));
+
+    navigate('/user');
   };
 
   if (isLoading) {
