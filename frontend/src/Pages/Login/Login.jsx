@@ -6,7 +6,8 @@ import Form from 'react-bootstrap/Form';
 import { useEffect } from 'react';
 import Image from 'react-bootstrap/Image';
 import Spinner from '../../Components/Spinner/Spinner';
-import { login } from '../../store/user-slice';
+import { login, reset } from '../../store/user-slice';
+// import { userActions } from '../../store/user-slice';
 const Login = () => {
   const [formData, setFormData] = useState({
     email: '',
@@ -21,7 +22,6 @@ const Login = () => {
     (state) => state.user
   );
   const [error, setError] = useState(message);
-  // console.log(user, isLoading, isError, isSuccess, message);
 
   useEffect(() => {
     if (isError) {
@@ -31,14 +31,14 @@ const Login = () => {
     if (user || isSuccess) {
       navigate('/');
     }
-  }, [isError, user, message, isSuccess, navigate]);
+    dispatch(reset());
+  }, [isError, user, message, isSuccess, navigate, dispatch]);
 
   const onchange = (e) => {
     setFormData((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
     }));
-    // console.log(e.target.value);
   };
 
   const onSubmit = (e) => {

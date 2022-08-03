@@ -25,8 +25,7 @@ const Main = () => {
     };
     fetchData();
   }, []);
-  // console.log(state.data.data);
-  // console.log(state.data.map((e) => console.log(e)));
+
   let active = 2;
   let items = [];
   for (let number = 1; number <= 5; number++) {

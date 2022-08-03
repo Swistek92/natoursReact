@@ -1,5 +1,6 @@
 .AppLogo {
-  height: 50vh;
+  width: 80vw;
+  max-width: 80vw;
 }
 
 @media (prefers-reduced-motion: no-preference) {

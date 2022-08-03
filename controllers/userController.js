@@ -61,8 +61,9 @@ exports.resizeUserPhoto = catchAsync(async (req, res, next) => {
     .resize(500, 500)
     .toFormat('jpeg')
     .jpeg({ quality: 90 })
-    .toFile(`public/img/users/${req.file.filename}`);
+    .toFile(`frontend/public/img/users/${req.file.filename}`);
 
+  console.log('req.file');
   next();
 });
 
@@ -100,8 +101,8 @@ exports.deleteMe = catchAsync(async (req, res, next) => {
 });
 
 exports.updateMe = catchAsync(async (req, res, next) => {
-  // console.log(req.file);
-  // console.log(req.body);
+  console.log('file', req.file);
+  console.log('body', req.body);
   //1 create a error if user post password data
   if (req.body.password || req.body.passwordConfirm) {
     return next(new AppError('you can not update password by this route', 400));

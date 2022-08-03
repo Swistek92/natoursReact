@@ -23,7 +23,6 @@ const Register = () => {
     (state) => state.user
   );
   const [error, setError] = useState(message);
-  // console.log(user, isLoading, isError, isSuccess, message);
 
   useEffect(() => {
     if (isError) {

@@ -6,11 +6,13 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import Logout from '../Logout/Logout';
+
 const Header = () => {
   const { user, isLoading, isError, isSuccess, message } = useSelector(
     (state) => state.user
   );
-
+  // console.log(user.data.user);
   return (
     <div className={styles.header}>
       <Navbar
@@ -39,11 +41,25 @@ const Header = () => {
                   </Link>
                 </Nav.Link>
               )}
-              <Nav.Link>
-                <Link className={styles.link} to="/register">
-                  Register
-                </Link>
-              </Nav.Link>
+              {!user && (
+                <Nav.Link>
+                  <Link className={styles.link} to="/register">
+                    Register
+                  </Link>
+                </Nav.Link>
+              )}
+              {user && (
+                <Nav.Link>
+                  <Link className={styles.link} to="/user">
+                    MyProfile
+                  </Link>
+                </Nav.Link>
+              )}
+              {user && (
+                <Nav.Link>
+                  <Logout />
+                </Nav.Link>
+              )}
               <NavDropdown title="Dropdown" id="basic-nav-dropdown">
                 <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
                 <NavDropdown.Item href="#action/3.2">

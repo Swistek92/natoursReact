@@ -8,6 +8,7 @@ const initialState = {
   isSuccess: false,
   isLoading: false,
   message: '',
+  aaa: '',
 };
 
 // Register user
@@ -48,11 +49,17 @@ export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    reset: (state) => {
+    reset(state) {
       state.isLoading = false;
       state.isSuccess = false;
       state.isError = false;
       state.message = '';
+    },
+    updateUser(state, action) {
+      console.log(state.user);
+      console.log(state.user.data.user);
+      state.user.data.user = action.payload;
+      // console.log(action.payload);
     },
   },
   extraReducers: (builder) => {
@@ -102,3 +109,6 @@ export const userSlice = createSlice({
       });
   },
 });
+export const { reset, updateUser } = userSlice.actions;
+
+// export const userActions = userSlice.actions;
