@@ -30,7 +30,7 @@ const UpdateName = () => {
       },
     };
 
-    const res = await axios.patch(API_URL, data, config);
+    const res = await axios.patch('/api/v1/users/updateMe', data, config);
 
     if (res.status === 200) {
       dispatch(updateUser(res.data.data.user));

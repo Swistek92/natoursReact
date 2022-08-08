@@ -37,7 +37,7 @@ const UpdateImg = () => {
     };
 
     try {
-      const res = await axios.patch(API_URL, formData, config);
+      const res = await axios.patch('/api/v1/users/updateMe', formData, config);
 
       if (res.status === 200) {
         console.log('dispatching status 200');
