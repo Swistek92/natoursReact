@@ -6,9 +6,10 @@ import Button from 'react-bootstrap/Button';
 import Item from '../../Components/Item/Item';
 import Pagination from 'react-bootstrap/Pagination';
 import styles from './Main.module.css';
+import Spinner from '../../Components/Spinner/Spinner';
 const Main = ({ data }) => {
   if (data.length < 3) {
-    return <p>asd</p>;
+    return <Spinner />;
   }
 
   let active = 2;
@@ -24,9 +25,9 @@ const Main = ({ data }) => {
     <>
       <h1 className={styles.main}>Tours</h1>
       <Row md={2} xs={1} lg={3} className="g-3">
-        {/* {data.data.data.map((tour) => {
+        {data.data.data.map((tour) => {
           return <Item key={tour.id} {...tour} />;
-        })} */}
+        })}
       </Row>
 
       <Pagination className="mx-4 my-4" size="lg">
