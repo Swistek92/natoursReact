@@ -31,9 +31,8 @@ function App() {
         console.log(error);
       }
     };
-    if (state.length < 1) {
       fetchData();
-    }
+   
   }, []);
 
   if (loading) {
