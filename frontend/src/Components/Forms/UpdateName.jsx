@@ -33,7 +33,9 @@ const UpdateName = () => {
     const res = await axios.patch('/api/v1/users/updateMe', data, config);
 
     if (res.status === 200) {
-      dispatch(updateUser(res.data.data.user));
+      console.log(res);
+      await dispatch(updateUser(res.data.data.user));
+      console.log(user);
     }
   };
 
