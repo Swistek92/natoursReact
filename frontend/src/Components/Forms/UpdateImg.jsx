@@ -11,7 +11,9 @@ const API_URL = `${host()}users/updateMe/`;
 const UpdateImg = () => {
   // console.log(API_URL);
   const dispatch = useDispatch();
-
+  const state = {
+    img: [],
+  };
   const [newImg, setNewImg] = useState([]);
   const { user, isLoading, isError, isSuccess, message } = useSelector(
     (state) => state.user
@@ -19,34 +21,28 @@ const UpdateImg = () => {
   // const img = user.data.user.photo;
   const jwt = user.token;
 
-  // useEffect(() => {
-  //   setNewImg(img);
-  // }, [img]);
+  useEffect(() => {
+    console.log(newImg);
+  }, [newImg]);
 
   const submitHandler = async (event) => {
     event.preventDefault();
-    // console.log(event.target[0].value);
+    console.log('NEW IMG', newImg);
     let formData = new FormData();
 
-    formData.append('photo', event.target[0].value);
-
+    formData.append('photo', newImg);
+    console.log(formData);
     let config = {
       headers: {
+        'content-type': 'multipart/form-data',
         Authorization: 'Bearer ' + jwt,
       },
     };
-    console.log(formData.keys);
     try {
       const res = await axios.patch(API_URL, formData, config);
-
-      if (res.status === 200) {
-        console.log('dispatching status 200');
-        console.log(res.data.data.user);
-        await dispatch(updateUser(res.data.data.user));
-        console.log(user);
-      }
-    } catch (error) {
-      console.log(error);
+      dispatch(updateUser(res.data.data.user));
+    } catch (err) {
+      console.log(err);
     }
   };
   return (
@@ -55,8 +51,9 @@ const UpdateImg = () => {
       <Form onSubmit={submitHandler}>
         <Container>
           <Row>
-            <Form.Group className="mb-3" controlId="image">
+            <Form.Group className="mb-3" controlId="formFile">
               <Form.Control
+                className="form-control"
                 type="file"
                 name="image"
                 onChange={(e) => {

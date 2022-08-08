@@ -39,11 +39,11 @@ if (process.env.NODE_ENV === 'production') {
   app.get('/', (req, res) =>
     res.sendFile(path.resolve(__dirname, 'fontend', 'build', 'index.html'))
   );
-  console.log(process.env.NODE_ENV);
+  console.log('api is running  😀😅 PRODUCTION MODE ');
 } else {
-  console.log(process.env.NODE_ENV);
+  console.log('api is running  😀😅 DEVELOPMENT MODE ');
   app.get('/', (req, res) => {
-    res.send('api is running');
+    res.send('api is running  😀😅 ');
   });
 }
 

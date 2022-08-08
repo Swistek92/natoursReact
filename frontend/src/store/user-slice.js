@@ -56,6 +56,8 @@ export const userSlice = createSlice({
     },
     updateUser(state, action) {
       state.user.data.user = action.payload;
+      // state.user.data = action.payload;
+      console.log(state.user.data);
     },
   },
   extraReducers: (builder) => {

@@ -27,8 +27,8 @@ const User = () => {
   const jwt = user.token;
   const role = user.data.user.role;
   let img = user.data.user.photo;
+  console.log(user.data.user);
   useEffect(() => {
-    img = user.data.user.photo;
     if (!user) {
       navigate('/');
     }

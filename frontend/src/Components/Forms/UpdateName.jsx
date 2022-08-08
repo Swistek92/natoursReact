@@ -30,11 +30,11 @@ const UpdateName = () => {
       },
     };
 
-    const res = await axios.patch('/api/v1/users/updateMe', data, config);
+    const res = await axios.patch(API_URL, data, config);
 
     if (res.status === 200) {
-      console.log(res);
-      await dispatch(updateUser(res.data.data.user));
+      console.log(res.data.data);
+      dispatch(updateUser(res.data.data.user));
       console.log(user);
     }
   };
