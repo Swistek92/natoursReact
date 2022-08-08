@@ -14,8 +14,8 @@ import Tour from './Pages/Tour/Tour';
 import host from './utilites/host';
 
 const API_URL = `${host()}tours`;
-
 function App() {
+  console.log('Asd');
   const [state, setState] = useLocalStorage('tours', []);
   const [loading, setLoading] = useState(false);
   console.log('HOST', host());
