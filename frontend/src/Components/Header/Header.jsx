@@ -23,8 +23,10 @@ const Header = () => {
         expand="lg"
       >
         <Container>
-          <Navbar.Brand href="#home">
-            {user ? user.data.user.name : 'Tours'}
+          <Navbar.Brand>
+            <Link className={styles.link} to="/">
+              Tours! {user && ` ${user.data.user.name}`}
+            </Link>
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">

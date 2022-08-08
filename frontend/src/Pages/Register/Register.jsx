@@ -54,9 +54,9 @@ const Register = () => {
       password,
       passwordConfirm: confirmPassword,
     };
-    await dispatch(register(userData));
+    const res = dispatch(register(userData));
 
-    navigate('/user');
+    console.log(res);
   };
 
   if (isLoading) {

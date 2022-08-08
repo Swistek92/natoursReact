@@ -3,6 +3,9 @@ import React, { useEffect, useState } from 'react';
 import { Button, Col, Container, Form, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateUser } from '../../store/user-slice';
+import host from '../../utilites/host';
+
+const API_URL = `${host()}users/updateMe/`;
 
 const UpdateImg = () => {
   const dispatch = useDispatch();
@@ -30,17 +33,13 @@ const UpdateImg = () => {
         Authorization: 'Bearer ' + jwt,
       },
     };
-
-    const res = await axios.patch(
-      // 'http://localhost:3001/api/v1/users/updateMe',
-      '/api/v1/users/updateMe',
-      formData,
-      config
-    );
-    console.log(res);
-
-    if (res.status === 200) {
-      await dispatch(updateUser(res.data.data.user));
+    try {
+      const res = await axios.patch(API_URL, formData, config);
+      if (res.status === 200) {
+        dispatch(updateUser(res.data.data.user));
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 

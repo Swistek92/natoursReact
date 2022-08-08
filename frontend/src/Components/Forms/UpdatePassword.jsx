@@ -1,7 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, Col, Container, Form, Row } from 'react-bootstrap';
 
 const UpdatePassword = () => {
+  const [passwords, setPassword] = useState({
+    currentPassword: '',
+    newPassword: '',
+    contrimPassword: '',
+  });
+
   const sumbitHandler = () => {};
   return (
     <div>

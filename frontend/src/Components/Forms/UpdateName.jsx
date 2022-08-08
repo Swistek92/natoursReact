@@ -3,6 +3,9 @@ import React, { useEffect, useState } from 'react';
 import { Button, Col, Container, Form, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateUser } from '../../store/user-slice';
+import host from '../../utilites/host';
+
+const API_URL = `${host()}users/updateMe/`;
 
 const UpdateName = () => {
   const dispatch = useDispatch();
@@ -27,12 +30,7 @@ const UpdateName = () => {
       },
     };
 
-    const res = await axios.patch(
-      // 'http://localhost:3001/api/v1/users/updateMe',
-      '/api/v1/users/updateMe',
-      data,
-      config
-    );
+    const res = await axios.patch(API_URL, data, config);
 
     if (res.status === 200) {
       dispatch(updateUser(res.data.data.user));
