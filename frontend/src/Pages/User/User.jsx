@@ -35,9 +35,11 @@ const User = () => {
     }
   }, [user, navigate, name]);
 
-  if (!img) {
-    return <Spinner />;
-  }
+  useEffect(() => {
+    if (!img) {
+      return navigate('/');
+    }
+  }, [img, navigate]);
 
   return (
     <div>

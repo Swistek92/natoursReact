@@ -33,8 +33,10 @@ const UpdateName = () => {
     const res = await axios.patch(API_URL, data, config);
 
     if (res.status === 200) {
+      setTimeout(() => {
+        dispatch(updateUser(res.data.data.user));
+      }, 4000);
       console.log(res.data.data);
-      dispatch(updateUser(res.data.data.user));
       console.log(user);
     }
   };
