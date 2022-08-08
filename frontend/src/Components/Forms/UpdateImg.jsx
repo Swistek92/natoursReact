@@ -5,13 +5,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { updateUser } from '../../store/user-slice';
 import host from '../../utilites/host';
 
-// const API_URL = `${host()}users/updateMe/`;
+const API_URL = `${host()}users/updateMe/`;
 
 const UpdateImg = () => {
   // console.log(API_URL);
   const dispatch = useDispatch();
 
-  const [newImg, setNewImg] = useState('');
+  const [newImg, setNewImg] = useState();
   const { user, isLoading, isError, isSuccess, message } = useSelector(
     (state) => state.user
   );
@@ -22,8 +22,8 @@ const UpdateImg = () => {
     setNewImg(img);
   }, [img]);
 
-  const submitHandler = async (e) => {
-    e.preventDefault();
+  const submitHandler = async (event) => {
+    event.preventDefault();
 
     let formData = new FormData();
 
@@ -35,9 +35,10 @@ const UpdateImg = () => {
       },
     };
 
-    const res = await axios.patch('/api/v1/users/updateMe', formData, config);
+    const res = await axios.patch(API_URL, formData, config);
     if (res.status === 200) {
-      dispatch(updateUser(res.data.data.user));
+      await dispatch(updateUser(res.data.data.user));
+      console.log('200');
     }
   };
   return (
@@ -46,12 +47,13 @@ const UpdateImg = () => {
       <Form onSubmit={submitHandler}>
         <Container>
           <Row>
-            <Form.Group className="mb-3" controlId="img">
+            <Form.Group className="mb-3" controlId="image">
               <Form.Control
                 type="file"
                 name="image"
                 onChange={(e) => {
                   setNewImg(e.target.files[0]);
+                  console.log(e.target.files[0]);
                 }}
               />
             </Form.Group>

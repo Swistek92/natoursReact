@@ -63,7 +63,6 @@ exports.resizeUserPhoto = catchAsync(async (req, res, next) => {
     .jpeg({ quality: 90 })
     .toFile(`frontend/public/img/users/${req.file.filename}`);
 
-  console.log('req.file');
   next();
 });
 

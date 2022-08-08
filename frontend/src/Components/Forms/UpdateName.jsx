@@ -3,60 +3,56 @@ import React, { useEffect, useState } from 'react';
 import { Button, Col, Container, Form, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateUser } from '../../store/user-slice';
+import host from '../../utilites/host';
 
-const UpdateImg = () => {
+const API_URL = `${host()}users/updateMe/`;
+
+const UpdateName = () => {
   const dispatch = useDispatch();
+  const [newName, setNewName] = useState('');
+  const { user } = useSelector((state) => state.user);
 
-  const [newImg, setNewImg] = useState('');
-  const { user, isLoading, isError, isSuccess, message } = useSelector(
-    (state) => state.user
-  );
-  const img = user.data.user.photo;
+  const name = user.data.user.name;
   const jwt = user.token;
 
   useEffect(() => {
-    setNewImg(img);
-  }, [img]);
+    setNewName(name);
+  }, [name, user]);
 
-  const submitHandler = async (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
-
-    let formData = new FormData();
-
-    formData.append('photo', newImg);
-
+    const data = {
+      name: newName,
+    };
     let config = {
       headers: {
         Authorization: 'Bearer ' + jwt,
       },
     };
 
-    const res = await axios.patch(
-      // 'http://localhost:3001/api/v1/users/updateMe',
-      '/api/v1/users/updateMe',
-      formData,
-      config
-    );
-    console.log(res);
+    const res = await axios.patch(API_URL, data, config);
 
     if (res.status === 200) {
-      await dispatch(updateUser(res.data.data.user));
+      dispatch(updateUser(res.data.data.user));
     }
   };
 
+  const onchange = (e) => {
+    setNewName(e.target.value);
+  };
+
   return (
-    <>
-      <h4>Update Image</h4>
-      <Form onSubmit={submitHandler}>
+    <div>
+      <h4>Update Name</h4>
+      <Form onSubmit={onSubmit}>
         <Container>
           <Row>
-            <Form.Group className="mb-3" controlId="img">
+            <Form.Group className="mb-3" controlId="name">
               <Form.Control
-                type="file"
-                name="image"
-                onChange={(e) => {
-                  setNewImg(e.target.files[0]);
-                }}
+                type="text"
+                name="name"
+                value={newName}
+                onChange={onchange}
               />
             </Form.Group>
           </Row>
@@ -67,8 +63,8 @@ const UpdateImg = () => {
           </Row>
         </Container>
       </Form>
-    </>
+    </div>
   );
 };
 
-export default UpdateImg;
+export default UpdateName;

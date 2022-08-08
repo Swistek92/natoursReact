@@ -24,20 +24,21 @@ const User = () => {
 
   const navigate = useNavigate();
   const name = user.data.user.name;
-  const img = user.data.user.photo;
   const jwt = user.token;
   const role = user.data.user.role;
-
+  let img = user.data.user.photo;
   useEffect(() => {
+    img = user.data.user.photo;
     if (!user) {
       navigate('/');
     }
-  }, [user, navigate, name, img]);
+  }, [user, navigate, name]);
 
   return (
     <div>
       <div className="d-flex align-items-center justify-content-center mb-4">
-        <Image
+        <img
+          alt="da"
           style={{ height: '30vh', maxHeight: '40vh' }}
           src={`/img/users/${img}`}
         />
