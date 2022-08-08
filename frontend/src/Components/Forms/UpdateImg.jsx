@@ -33,16 +33,12 @@ const UpdateImg = () => {
         Authorization: 'Bearer ' + jwt,
       },
     };
-    try {
-      const res = await axios.patch(API_URL, formData, config);
-      if (res.status === 200) {
-        dispatch(updateUser(res.data.data.user));
-      }
-    } catch (error) {
-      console.log(error);
+
+    const res = await axios.patch(API_URL, formData, config);
+    if (res.status === 200) {
+      dispatch(updateUser(res.data.data.user));
     }
   };
-
   return (
     <>
       <h4>Update Image</h4>

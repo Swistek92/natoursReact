@@ -55,10 +55,7 @@ export const userSlice = createSlice({
       state.message = '';
     },
     updateUser(state, action) {
-      console.log(state.user);
-      console.log(state.user.data.user);
       state.user.data.user = action.payload;
-      // console.log(action.payload);
     },
   },
   extraReducers: (builder) => {
