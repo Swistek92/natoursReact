@@ -5,9 +5,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { updateUser } from '../../store/user-slice';
 import host from '../../utilites/host';
 
-const API_URL = `${host()}users/updateMe/`;
+// const API_URL = `${host()}users/updateMe/`;
 
 const UpdateImg = () => {
+  // console.log(API_URL);
   const dispatch = useDispatch();
 
   const [newImg, setNewImg] = useState('');
@@ -34,7 +35,7 @@ const UpdateImg = () => {
       },
     };
 
-    const res = await axios.patch(API_URL, formData, config);
+    const res = await axios.patch('/api/v1/users/updateMe', formData, config);
     if (res.status === 200) {
       dispatch(updateUser(res.data.data.user));
     }
