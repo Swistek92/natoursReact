@@ -5,9 +5,12 @@ import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import Item from '../../Components/Item/Item';
 import Pagination from 'react-bootstrap/Pagination';
-import axios from 'axios';
 import styles from './Main.module.css';
 const Main = ({ data }) => {
+  if (data.length < 3) {
+    return <p>asd</p>;
+  }
+
   let active = 2;
   let items = [];
   for (let number = 1; number <= 5; number++) {

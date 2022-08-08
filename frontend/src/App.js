@@ -1,7 +1,7 @@
 import Header from './Components/Header/Header';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Main from './Pages/Main/Main';
-import { Container, Spinner } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import Login from './Pages/Login/Login';
 import Register from './Pages/Register/Register';
@@ -11,12 +11,13 @@ import { useLocalStorage } from './utilites/useLocalStorage';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Tour from './Pages/Tour/Tour';
+import styles from './App.module.css';
+import Spinner from './Components/Spinner/Spinner';
 import host from './utilites/host';
 
 const API_URL = `${host()}tours`;
+
 function App() {
-  console.log('api url', API_URL);
-  console.log('HOST', host());
   const [state, setState] = useLocalStorage('tours', []);
   const [loading, setLoading] = useState(false);
   useEffect(() => {
@@ -24,17 +25,16 @@ function App() {
       try {
         setLoading(true);
         const res = await axios.get(API_URL);
-        console.log(res);
         setState(res.data);
         setLoading(false);
       } catch (error) {
         console.log(error);
       }
     };
-    if (!state) {
+    if (state.length < 1) {
       fetchData();
     }
-  }, [setState, state]);
+  }, []);
 
   if (loading) {
     return <Spinner />;
