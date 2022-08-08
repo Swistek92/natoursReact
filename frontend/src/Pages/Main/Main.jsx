@@ -24,9 +24,9 @@ const Main = ({ data }) => {
     <>
       <h1 className={styles.main}>Tours</h1>
       <Row md={2} xs={1} lg={3} className="g-3">
-        {data.data.data.map((tour) => {
+        {/* {data.data.data.map((tour) => {
           return <Item key={tour.id} {...tour} />;
-        })}
+        })} */}
       </Row>
 
       <Pagination className="mx-4 my-4" size="lg">
