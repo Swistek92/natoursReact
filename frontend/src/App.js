@@ -20,6 +20,7 @@ const API_URL = `${host()}tours`;
 function App() {
   const [state, setState] = useLocalStorage('tours', []);
   const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -31,15 +32,14 @@ function App() {
         console.log(error);
       }
     };
-      fetchData();
-   
+    fetchData();
   }, []);
 
   if (loading) {
     return <Spinner />;
   }
-  if(state.length< 3){
-    return <Spinner/>
+  if (state.length < 3) {
+    return <Spinner />;
   }
   return (
     <Router>

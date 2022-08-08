@@ -17,6 +17,7 @@ import { Link } from 'react-router-dom';
 import UpdateName from '../../Components/Forms/UpdateName';
 import UpdateImg from '../../Components/Forms/UpdateImg';
 import UpdatePassword from '../../Components/Forms/UpdatePassword';
+import Spinner from '../../Components/Spinner/Spinner';
 const User = () => {
   const { user, isLoading, isError, isSuccess, message } = useSelector(
     (state) => state.user
@@ -33,6 +34,10 @@ const User = () => {
       navigate('/');
     }
   }, [user, navigate, name]);
+
+  if (!img) {
+    return <Spinner />;
+  }
 
   return (
     <div>
