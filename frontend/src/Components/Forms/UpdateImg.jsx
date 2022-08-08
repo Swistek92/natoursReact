@@ -28,6 +28,7 @@ const UpdateImg = () => {
     let formData = new FormData();
 
     formData.append('photo', newImg);
+    console.log(newImg);
 
     let config = {
       headers: {
@@ -35,10 +36,16 @@ const UpdateImg = () => {
       },
     };
 
-    const res = await axios.patch(API_URL, formData, config);
-    if (res.status === 200) {
-      await dispatch(updateUser(res.data.data.user));
-      console.log('200');
+    try {
+      const res = await axios.patch(API_URL, formData, config);
+
+      if (res.status === 200) {
+        console.log('dispatching status 200');
+        await dispatch(updateUser(res.data.data.user));
+        console.log('200');
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
   return (
