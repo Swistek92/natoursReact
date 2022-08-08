@@ -38,6 +38,9 @@ function App() {
   if (loading) {
     return <Spinner />;
   }
+  if(state.length< 3){
+    return <Spinner/>
+  }
   return (
     <Router>
       <Header className="sticky-top" />
