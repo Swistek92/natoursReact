@@ -15,15 +15,16 @@ import host from './utilites/host';
 
 const API_URL = `${host()}tours`;
 function App() {
-  console.log('Asd');
+  console.log('api url', API_URL);
+  console.log('HOST', host());
   const [state, setState] = useLocalStorage('tours', []);
   const [loading, setLoading] = useState(false);
-  console.log('HOST', host());
   useEffect(() => {
     const fetchData = async () => {
       try {
         setLoading(true);
         const res = await axios.get(API_URL);
+        console.log(res);
         setState(res.data);
         setLoading(false);
       } catch (error) {
