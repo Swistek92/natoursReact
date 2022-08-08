@@ -9,9 +9,7 @@ import 'swiper/css/pagination';
 
 import styles from './styles.module.css';
 
-// import required modules
 import { EffectCoverflow, Pagination } from 'swiper';
-// import { EffectCube, Pagination } from 'swiper';
 
 const CarouselCard = ({ data }) => {
   const imgs = [...data.images, data.imageCover];
