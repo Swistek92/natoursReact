@@ -89,7 +89,6 @@ const User = () => {
     console.log('res', res);
     console.log(res.data.data.user);
     dispatch(updateUser(res.data.data.user));
-    navigate('/');
   };
 
   return (
