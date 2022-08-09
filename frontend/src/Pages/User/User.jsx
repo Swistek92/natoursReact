@@ -12,34 +12,85 @@ import {
 } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
-import { updateUser } from '../../store/user-slice';
 import { Link } from 'react-router-dom';
 import UpdateName from '../../Components/Forms/UpdateName';
 import UpdateImg from '../../Components/Forms/UpdateImg';
 import UpdatePassword from '../../Components/Forms/UpdatePassword';
 import Spinner from '../../Components/Spinner/Spinner';
+import { updateUser } from '../../store/user-slice';
+
+import host from '../../utilites/host';
+import { updateSettings } from './UpdateSettings';
+
+const API_URL = `${host()}users/updateMe/`;
+
 const User = () => {
+  const [newName, setNewName] = useState();
+  const [newEmail, setNewEmail] = useState();
+  const [newImg, setNewImg] = useState();
+  const [data, setData] = useState({
+    name: '',
+    email: '',
+    image: null,
+  });
+
   const { user, isLoading, isError, isSuccess, message } = useSelector(
     (state) => state.user
   );
-
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const name = user.data.user.name;
+  const email = user.data.user.email;
   const jwt = user.token;
   const role = user.data.user.role;
   let img = user.data.user.photo;
-  console.log(user.data.user);
+  // console.log(user.data.user);
   useEffect(() => {
     if (!user) {
       navigate('/');
     }
   }, [user, navigate, name]);
 
-  useEffect(() => {
-    if (!img) {
-      return navigate('/');
-    }
-  }, [img, navigate]);
+  useEffect(() => {}, [img, navigate]);
+
+  const onChange = (e) => {
+    setData((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }));
+  };
+  const onChangeImg = (e) => {
+    setData((prevState) => ({
+      ...prevState,
+      [e.target.name]: e,
+    }));
+  };
+
+  const submitHanlder = async (e) => {
+    e.preventDefault();
+
+    let form = new FormData();
+
+    console.log(newImg);
+
+    newName && form.append('name', newName);
+    newEmail && form.append('email', newEmail);
+    newImg && form.append('photo', newImg);
+
+    const res = await axios({
+      method: 'PATCH',
+      // url: 'http://localhost:3001/api/v1/users/updateMe',
+      url: API_URL,
+      data: form,
+      headers: {
+        Authorization: 'Bearer ' + user.token,
+      },
+    });
+    console.log('res', res);
+    console.log(res.data.data.user);
+    dispatch(updateUser(res.data.data.user));
+    navigate('/');
+  };
 
   return (
     <div>
@@ -62,24 +113,85 @@ const User = () => {
         <p>
           <b>Name: </b> {name}
         </p>
+        <p>
+          <b>E-mail: {email}</b>
+        </p>
         <div>
           <Accordion>
             <Accordion.Item eventKey="0">
               <Accordion.Header>Update Name</Accordion.Header>
               <Accordion.Body>
-                <UpdateName />
+                <Form>
+                  <Container>
+                    <Row>
+                      <Form.Group className="mb-3" controlId="name">
+                        <Form.Control
+                          type="text"
+                          name="name"
+                          onChange={(e) => {
+                            setNewName(e.target.value);
+                          }}
+                        />
+                      </Form.Group>
+                    </Row>
+                    <Row>
+                      <Button onClick={submitHanlder}>Edit </Button>
+                    </Row>
+                  </Container>
+                </Form>
               </Accordion.Body>
             </Accordion.Item>
+            {/* NAME */}
             <Accordion.Item eventKey="1">
+              {/* IMG */}
               <Accordion.Header>Update profile image</Accordion.Header>
               <Accordion.Body>
-                <UpdateImg />
+                <Form>
+                  <Container>
+                    <Row>
+                      <Form.Group className="mb-3" controlId="image">
+                        <Form.Control
+                          className="form-control"
+                          type="file"
+                          name="image"
+                          // accept=''
+                          onChange={(e) => {
+                            console.log(e.target.files);
+                            setNewImg(e.target.files[0]);
+                          }}
+                        />
+                      </Form.Group>
+                    </Row>
+                    <Row>
+                      <Button onClick={submitHanlder}>Edit </Button>
+                    </Row>
+                  </Container>
+                </Form>
               </Accordion.Body>
             </Accordion.Item>
+            {/* IMG */}
             <Accordion.Item eventKey="2">
-              <Accordion.Header>Update your password</Accordion.Header>
+              <Accordion.Header>Update your email</Accordion.Header>
               <Accordion.Body>
-                <UpdatePassword />
+                <Form>
+                  <Container>
+                    <Row>
+                      <Form.Group className="mb-3" controlId="email">
+                        <Form.Control
+                          className="form-control"
+                          type="email"
+                          name="email"
+                          onChange={(e) => {
+                            setNewEmail(e.target.value);
+                          }}
+                        />
+                      </Form.Group>
+                    </Row>
+                    <Row>
+                      <Button onClick={submitHanlder}>Edit </Button>
+                    </Row>
+                  </Container>
+                </Form>
               </Accordion.Body>
             </Accordion.Item>
           </Accordion>

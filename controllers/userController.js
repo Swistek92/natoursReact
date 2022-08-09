@@ -53,8 +53,9 @@ const upload = multer({
 exports.uploadUserPhoto = upload.single('photo');
 
 exports.resizeUserPhoto = catchAsync(async (req, res, next) => {
-  console.log('@@@@@@@@@@@@ resizeUserPhoto', req.file);
+  // console.log('@@@@@@@@@@@@ resizeUserPhoto', req.file);
   if (!req.file) {
+    console.log(req);
     console.log('NO FILE RETURN NEXT MIDDLEWARE');
     return next();
   }
@@ -65,7 +66,7 @@ exports.resizeUserPhoto = catchAsync(async (req, res, next) => {
     .toFormat('jpeg')
     .jpeg({ quality: 90 })
     .toFile(`frontend/public/img/users/${req.file.filename}`);
-  console.log('@@@@@@@@@@@@ SHARP DONE', req.file.filename);
+  // console.log('@@@@@@@@@@@@ SHARP DONE', req.file.filename);
 
   next();
 });

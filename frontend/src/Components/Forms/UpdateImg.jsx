@@ -31,7 +31,6 @@ const UpdateImg = () => {
     let formData = new FormData();
 
     formData.append('photo', newImg);
-    console.log(formData);
     let config = {
       headers: {
         'content-type': 'multipart/form-data',
@@ -51,15 +50,13 @@ const UpdateImg = () => {
       <Form onSubmit={submitHandler}>
         <Container>
           <Row>
-            <Form.Group className="mb-3" controlId="formFile">
+            <Form.Group className="mb-3" controlId="img">
               <Form.Control
                 className="form-control"
                 type="file"
                 name="image"
                 onChange={(e) => {
                   setNewImg(e.target.files[0]);
-                  // console.log(e.target.files[0]);
-                  // console.log(newImg);
                 }}
               />
             </Form.Group>
