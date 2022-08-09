@@ -79,6 +79,7 @@ const User = () => {
       url: API_URL,
       data,
       headers: {
+        'Content-Type': 'multipart/form-data',
         Authorization: 'Bearer ' + user.token,
       },
     });
