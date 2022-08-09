@@ -74,15 +74,17 @@ const User = () => {
     data.append('email', newEmail);
     data.append('photo', newImg);
 
+    console.log(data);
     const res = await axios({
       method: 'PATCH',
-      url: API_URL,
+      // url: API_URL,
+      url: '/api/v1/users/updateMe',
       data,
       headers: {
-        'Content-Type': 'multipart/form-data',
         Authorization: 'Bearer ' + user.token,
       },
     });
+    console.log(data);
     console.log('res', res);
     console.log(res.data.data.user);
     dispatch(updateUser(res.data.data.user));
