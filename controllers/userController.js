@@ -61,13 +61,14 @@ exports.resizeUserPhoto = catchAsync(async (req, res, next) => {
   }
   req.file.filename = `user-${req.user.id}-${Date.now()}.jpeg`;
 
-  const res2 = await sharp(req.file.buffer)
+  console.log(req.file.buffer);
+
+  await sharp(req.file.buffer)
     .resize(500, 500)
     .toFormat('jpeg')
     .jpeg({ quality: 90 })
     .toFile(`frontend/public/img/users/${req.file.filename}`);
 
-  console.log(res2);
   next();
 });
 
@@ -105,8 +106,6 @@ exports.deleteMe = catchAsync(async (req, res, next) => {
 });
 
 exports.updateMe = catchAsync(async (req, res, next) => {
-  console.log('file', req.file);
-  console.log('body', req.body);
   //1 create a error if user post password data
   if (req.body.password || req.body.passwordConfirm) {
     return next(new AppError('you can not update password by this route', 400));
@@ -114,9 +113,7 @@ exports.updateMe = catchAsync(async (req, res, next) => {
   //2 update user filltered with fields are allowed
   const filteredBody = filterObj(req.body, 'name', 'email');
 
-  if (req.file) {
-    filteredBody.photo = req.file.filename;
-  }
+  if (req.file) filteredBody.photo = req.file.filename;
 
   const updatedUser = await User.findByIdAndUpdate(req.user.id, filteredBody, {
     new: true,

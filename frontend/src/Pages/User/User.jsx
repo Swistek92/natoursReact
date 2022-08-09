@@ -77,8 +77,8 @@ const User = () => {
     console.log(data);
     const res = await axios({
       method: 'PATCH',
-      // url: API_URL,
-      url: '/api/v1/users/updateMe',
+      url: API_URL,
+      // url: '/api/v1/users/updateMe',
       data,
       headers: {
         Authorization: 'Bearer ' + user.token,
@@ -87,7 +87,9 @@ const User = () => {
     console.log(data);
     console.log('res', res);
     console.log(res.data.data.user);
-    dispatch(updateUser(res.data.data.user));
+    if (res.status === 200) {
+      dispatch(updateUser(res.data.data.user));
+    }
   };
 
   return (
