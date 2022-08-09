@@ -41,7 +41,7 @@ const Register = () => {
     }));
   };
 
-  const onSubmit = async (e) => {
+  const sendData = async (e) => {
     e.preventDefault();
 
     if (password !== confirmPassword) {
@@ -54,9 +54,8 @@ const Register = () => {
       password,
       passwordConfirm: confirmPassword,
     };
-    const res = dispatch(register(userData));
 
-    console.log(res);
+    const res = await dispatch(register(userData));
   };
 
   if (isLoading) {
@@ -69,7 +68,7 @@ const Register = () => {
         <Image style={{ maxHeight: '20vh' }} src="/img/users/default.jpg" />
       </div>
 
-      <Form onSubmit={onSubmit}>
+      <Form>
         <p>{error}</p>
         <Form.Group className="mb-3" controlId="Name">
           <Form.Label>Name</Form.Label>
@@ -108,7 +107,7 @@ const Register = () => {
             onChange={onchange}
           />
         </Form.Group>
-        <Button variant="primary" type="submit">
+        <Button variant="primary" onClick={sendData}>
           Register
         </Button>
       </Form>

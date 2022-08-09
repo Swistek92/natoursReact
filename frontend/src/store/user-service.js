@@ -4,6 +4,7 @@ const API_URL = `${host()}users/`;
 
 // Register user
 const register = async (userData) => {
+  console.log(API_URL);
   const response = await axios.post(API_URL + 'signup', userData);
   console.log(userData);
   if (response.data) {
@@ -16,6 +17,7 @@ const register = async (userData) => {
 // Login user
 const login = async (userData) => {
   console.log(userData);
+  console.log(API_URL);
   const response = await axios.post(API_URL + 'login', userData);
 
   if (response.data) {

@@ -25,15 +25,6 @@ import { updateSettings } from './UpdateSettings';
 const API_URL = `${host()}users/updateMe/`;
 
 const User = () => {
-  const [newName, setNewName] = useState();
-  const [newEmail, setNewEmail] = useState();
-  const [newImg, setNewImg] = useState();
-  const [data, setData] = useState({
-    name: '',
-    email: '',
-    image: null,
-  });
-
   const { user, isLoading, isError, isSuccess, message } = useSelector(
     (state) => state.user
   );
@@ -44,6 +35,14 @@ const User = () => {
   const jwt = user.token;
   const role = user.data.user.role;
   let img = user.data.user.photo;
+  const [newName, setNewName] = useState(name);
+  const [newEmail, setNewEmail] = useState(email);
+  const [newImg, setNewImg] = useState();
+  const [data, setData] = useState({
+    name: '',
+    email: '',
+    image: null,
+  });
   // console.log(user.data.user);
   useEffect(() => {
     if (!user) {
@@ -69,19 +68,16 @@ const User = () => {
   const submitHanlder = async (e) => {
     e.preventDefault();
 
-    let form = new FormData();
+    let data = new FormData();
 
-    console.log(newImg);
-
-    newName && form.append('name', newName);
-    newEmail && form.append('email', newEmail);
-    newImg && form.append('photo', newImg);
+    data.append('name', newName);
+    data.append('email', newEmail);
+    data.append('photo', newImg);
 
     const res = await axios({
       method: 'PATCH',
-      // url: 'http://localhost:3001/api/v1/users/updateMe',
       url: API_URL,
-      data: form,
+      data,
       headers: {
         Authorization: 'Bearer ' + user.token,
       },
@@ -148,14 +144,13 @@ const User = () => {
                 <Form>
                   <Container>
                     <Row>
-                      <Form.Group className="mb-3" controlId="image">
+                      <Form.Group className="mb-3" controlId="photo">
                         <Form.Control
                           className="form-control"
                           type="file"
-                          name="image"
-                          // accept=''
+                          name="photo"
                           onChange={(e) => {
-                            console.log(e.target.files);
+                            console.log(e.target.files[0]);
                             setNewImg(e.target.files[0]);
                           }}
                         />
