@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 import host from '../utilites/host';
 const API_URL = `${host()}users/`;
 

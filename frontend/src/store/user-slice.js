@@ -1,6 +1,9 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import axios from 'axios';
+import host from '../utilites/host';
 import userService from './user-service';
 const user = JSON.parse(localStorage.getItem('user'));
+const API_URL = `${host()}users/`;
 
 const initialState = {
   user: user ? user : null,
@@ -11,22 +14,22 @@ const initialState = {
 };
 
 // Register user
-export const register = createAsyncThunk(
-  'user/register',
-  async (user, thunkAPI) => {
-    try {
-      return await userService.register(user);
-    } catch (error) {
-      const message =
-        (error.response &&
-          error.response.data &&
-          error.response.data.message) ||
-        error.message ||
-        error.toString();
-      return thunkAPI.rejectWithValue(message);
+export const register = createAsyncThunk('user/register', async (user) => {
+  try {
+    const response = await axios.post(API_URL + 'signup', user);
+    if (response.data) {
+      localStorage.setItem('user', JSON.stringify(response.data));
     }
+
+    return response.data;
+  } catch (error) {
+    const message =
+      (error.response && error.response.data && error.response.data.message) ||
+      error.message ||
+      error.toString();
+    return message;
   }
-);
+});
 
 export const logout = createAsyncThunk('user/logout', async () => {
   await userService.logout();
@@ -50,6 +53,7 @@ export const userSlice = createSlice({
   reducers: {
     reset(state) {
       state.isLoading = false;
+
       state.isSuccess = false;
       state.isError = false;
       state.message = '';
