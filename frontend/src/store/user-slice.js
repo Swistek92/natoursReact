@@ -19,6 +19,10 @@ export const register = createAsyncThunk(
   async (user, thunkAPI) => {
     try {
       const response = await axios.post(API_URL + 'signup', user);
+      console.log(response);
+      console.log(JSON.stringify(response.data));
+      console.log(JSON.stringify(response));
+
       if (response.data) {
         localStorage.setItem('user', JSON.stringify(response.data));
       }
