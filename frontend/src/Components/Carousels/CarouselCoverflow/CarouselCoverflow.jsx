@@ -33,8 +33,8 @@ const CarouselCard = ({ data }) => {
       >
         {imgs.map((e, i) => {
           return (
-            <SwiperSlide className={styles.swiperSlide}>
-              <img key={imgs[i]} alt="d" src={`/img/tours/${e}`} />
+            <SwiperSlide key={e} className={styles.swiperSlide}>
+              <img alt="d" src={`/img/tours/${e}`} />
             </SwiperSlide>
           );
         })}

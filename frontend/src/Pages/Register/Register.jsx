@@ -33,11 +33,10 @@ const Register = () => {
     if (user || isSuccess) {
       navigate('/');
     }
-    if (isLoading) {
-      return <Spinner />;
-    }
   }, [isError, user, message, isSuccess, navigate, isLoading]);
-
+  if (isLoading) {
+    return <Spinner />;
+  }
   const onchange = (e) => {
     setFormData((prevState) => ({
       ...prevState,
