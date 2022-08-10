@@ -1,12 +1,12 @@
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import host from '../utilites/host';
 const API_URL = `${host()}users/`;
 
 // Register user
 const register = async (userData) => {
-  console.log(API_URL);
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const response = await axios.post(API_URL + 'signup', userData);
-  console.log(userData);
   if (response.data) {
     localStorage.setItem('user', JSON.stringify(response.data));
   }

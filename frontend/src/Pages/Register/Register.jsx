@@ -22,6 +22,7 @@ const Register = () => {
   const { user, isLoading, isError, isSuccess, message } = useSelector(
     (state) => state.user
   );
+
   const [error, setError] = useState(message);
 
   useEffect(() => {
@@ -32,7 +33,10 @@ const Register = () => {
     if (user || isSuccess) {
       navigate('/');
     }
-  }, [isError, user, message, isSuccess, navigate]);
+    if (isLoading) {
+      return <Spinner />;
+    }
+  }, [isError, user, message, isSuccess, navigate, isLoading]);
 
   const onchange = (e) => {
     setFormData((prevState) => ({
@@ -55,12 +59,8 @@ const Register = () => {
       passwordConfirm: confirmPassword,
     };
 
-    const res = await dispatch(register(userData));
+    dispatch(register(userData));
   };
-
-  if (isLoading) {
-    return <Spinner />;
-  }
 
   return (
     <div>
