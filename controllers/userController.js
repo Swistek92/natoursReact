@@ -63,7 +63,7 @@ exports.resizeUserPhoto = catchAsync(async (req, res, next) => {
 
   console.log('@@@@ req.file BUFFER GO TO SHARP UID ===>', req.user.id);
 
-  await sharp(req.file.buffer)
+  const resSharp = await sharp(req.file.buffer)
     .resize(500, 500)
     .toFormat('jpeg')
     .jpeg({ quality: 90 })
@@ -71,6 +71,7 @@ exports.resizeUserPhoto = catchAsync(async (req, res, next) => {
   console.log(
     '@@@@@@@@ file saved frontend/public/img/users/{req.file.filename} '
   );
+  console.log('resSharp', resSharp);
 
   next();
 });
@@ -116,7 +117,10 @@ exports.updateMe = catchAsync(async (req, res, next) => {
   //2 update user filltered with fields are allowed
   const filteredBody = filterObj(req.body, 'name', 'email');
 
-  if (req.file) filteredBody.photo = req.file.filename;
+  if (req.file) {
+    console.log('@@@@@@@@@ there is a file in  req');
+    filteredBody.photo = req.file.filename;
+  }
 
   const updatedUser = await User.findByIdAndUpdate(req.user.id, filteredBody, {
     new: true,
