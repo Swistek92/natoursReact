@@ -25,7 +25,7 @@ const app = express();
 
 app.enable('trust proxy');
 // PUG
-// app.set('view engine', 'pug');
+app.set('view engine', 'pug');
 // app.set('views', path.join(__dirname, 'views'));
 
 // PUG
