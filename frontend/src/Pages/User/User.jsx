@@ -105,7 +105,7 @@ const User = () => {
   };
 
   const uploadImage = async (base64EncodedImage) => {
-    // console.log(base64EncodedImage);
+    // console.log(base64EncodedImag;
     try {
       const response = await fetch(API_URL2, {
         method: 'POST',
