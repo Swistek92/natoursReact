@@ -16,8 +16,10 @@ router.use(authController.protect);
 
 router.patch('/updateMyPassword/', authController.updatePassword);
 router.get('/me', userController.getMe, userController.getUser);
+router.post('/logoImg', userController.uploadUserPhoto2);
 router.patch(
   '/updateMe',
+  // userController.uploadUserPhoto2,
   userController.uploadUserPhoto,
   userController.resizeUserPhoto,
   userController.updateMe

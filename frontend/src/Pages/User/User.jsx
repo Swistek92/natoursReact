@@ -13,9 +13,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { Link } from 'react-router-dom';
-import UpdateName from '../../Components/Forms/UpdateName';
-import UpdateImg from '../../Components/Forms/UpdateImg';
-import UpdatePassword from '../../Components/Forms/UpdatePassword';
+
 import Spinner from '../../Components/Spinner/Spinner';
 import { updateUser } from '../../store/user-slice';
 
@@ -23,47 +21,33 @@ import host from '../../utilites/host';
 import { updateSettings } from './UpdateSettings';
 
 const API_URL = `${host()}users/updateMe/`;
+const API_URL2 = `${host()}users/logoImg/`;
+const API_URL3 = `${host()}users/me/`;
 
 const User = () => {
-  const { user, isLoading, isError, isSuccess, message } = useSelector(
-    (state) => state.user
-  );
+  const { user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const name = user.data.user.name;
+  const id = user.data.user.id;
   const email = user.data.user.email;
   const jwt = user.token;
   const role = user.data.user.role;
   let img = user.data.user.photo;
   const [newName, setNewName] = useState(name);
   const [newEmail, setNewEmail] = useState(email);
-  const [newImg, setNewImg] = useState();
-  const [data, setData] = useState({
-    name: '',
-    email: '',
-    image: null,
-  });
-  // console.log(user.data.user);
+  // const [newImg, setNewImg] = useState();
+  const [fileInputState, setFileInputState] = useState('');
+  const [previewSource, setPreviewSource] = useState('');
+  const [selectedFile, setSelectedFile] = useState();
+  const [successMsg, setSuccessMsg] = useState('');
+  const [errMsg, setErrMsg] = useState('');
+
   useEffect(() => {
     if (!user) {
       navigate('/');
     }
-  }, [user, navigate, name]);
-
-  useEffect(() => {}, [img, navigate]);
-
-  const onChange = (e) => {
-    setData((prevState) => ({
-      ...prevState,
-      [e.target.name]: e.target.value,
-    }));
-  };
-  const onChangeImg = (e) => {
-    setData((prevState) => ({
-      ...prevState,
-      [e.target.name]: e,
-    }));
-  };
+  }, [user, navigate]);
 
   const submitHanlder = async (e) => {
     e.preventDefault();
@@ -72,23 +56,81 @@ const User = () => {
 
     data.append('name', newName);
     data.append('email', newEmail);
-    data.append('photo', newImg);
+    //  data.append('photo', newImg);
 
     console.log(data);
     const res = await axios({
       method: 'PATCH',
       url: API_URL,
       // url: '/api/v1/users/updateMe',
-      data,
+      data: data,
       headers: {
         Authorization: 'Bearer ' + user.token,
       },
     });
-    console.log(data);
-    console.log('res', res);
     console.log(res.data.data.user);
+
     if (res.status === 200) {
       dispatch(updateUser(res.data.data.user));
+    }
+  };
+
+  const handleFileInputChange = (e) => {
+    const file = e.target.files[0];
+    previewFile(file);
+    setSelectedFile(file);
+    setFileInputState(e.target.value);
+  };
+
+  const previewFile = (file) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setPreviewSource(reader.result);
+    };
+  };
+
+  const handleSubmitFile = (e) => {
+    e.preventDefault();
+    if (!selectedFile) return;
+    const reader = new FileReader();
+    reader.readAsDataURL(selectedFile);
+    reader.onloadend = () => {
+      uploadImage(reader.result);
+    };
+    reader.onerror = () => {
+      console.error('AHHHHHHHH!!');
+      setErrMsg('something went wrong!');
+    };
+  };
+
+  const uploadImage = async (base64EncodedImage) => {
+    // console.log(base64EncodedImage);
+    try {
+      const response = await fetch(API_URL2, {
+        method: 'POST',
+        body: JSON.stringify({ data: base64EncodedImage, id: id }),
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + user.token,
+        },
+      });
+
+      if (response.status === 200) {
+        const user1 = await axios.get(API_URL3, {
+          headers: {
+            Authorization: 'Bearer ' + user.token,
+          },
+        });
+        console.log(user1.data.data.data);
+        dispatch(updateUser(user1.data.data.data));
+      }
+      setFileInputState('');
+      setPreviewSource('');
+      setSuccessMsg('Image uploaded successfully');
+    } catch (err) {
+      console.error(err);
+      setErrMsg('Something went wrong!');
     }
   };
 
@@ -98,7 +140,7 @@ const User = () => {
         <img
           alt="da"
           style={{ height: '30vh', maxHeight: '40vh' }}
-          src={`/img/users/${img}`}
+          src={`${img}`}
         />
       </div>
       <div className="text-center">
@@ -146,7 +188,7 @@ const User = () => {
               {/* IMG */}
               <Accordion.Header>Update profile image</Accordion.Header>
               <Accordion.Body>
-                <Form>
+                <Form onSubmit={handleSubmitFile}>
                   <Container>
                     <Row>
                       <Form.Group className="mb-3" controlId="photo">
@@ -154,15 +196,12 @@ const User = () => {
                           className="form-control"
                           type="file"
                           name="photo"
-                          onChange={(e) => {
-                            console.log(e.target.files[0]);
-                            setNewImg(e.target.files[0]);
-                          }}
+                          onChange={handleFileInputChange}
                         />
                       </Form.Group>
                     </Row>
                     <Row>
-                      <Button onClick={submitHanlder}>Edit </Button>
+                      <Button type="submit">Edit </Button>
                     </Row>
                   </Container>
                 </Form>
@@ -187,13 +226,23 @@ const User = () => {
                       </Form.Group>
                     </Row>
                     <Row>
-                      <Button onClick={submitHanlder}>Edit </Button>
+                      <Button type="submit">Edit </Button>
                     </Row>
                   </Container>
                 </Form>
               </Accordion.Body>
             </Accordion.Item>
           </Accordion>
+          {previewSource && (
+            <div className="container">
+              <h1> Preview new Profile Image</h1>
+              <img
+                style={{ height: '30vh', maxHeight: '40vh' }}
+                src={previewSource}
+                alt={'chosen'}
+              />
+            </div>
+          )}
         </div>
       </div>
     </div>
