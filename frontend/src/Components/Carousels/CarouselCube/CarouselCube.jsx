@@ -7,14 +7,16 @@ import 'swiper/css';
 import 'swiper/css/effect-cube';
 import 'swiper/css/pagination';
 
-import './styles.css';
+import styles from './stylesCube.module.css';
 
 // import required modules
 import { EffectCube, Pagination } from 'swiper';
-const Carousel = () => {
+const CarouselCube = (props) => {
+  const { imgs } = props;
   return (
     <>
       <Swiper
+        className={styles.swiper}
         effect={'cube'}
         grabCursorra={true}
         cubeEffect={{
@@ -25,18 +27,17 @@ const Carousel = () => {
         }}
         pagination={true}
         modules={[EffectCube, Pagination]}
-        className="mySwiper"
       >
-        <SwiperSlide>
+        <SwiperSlide className={styles.swiperSlide}>
           <img src="https://swiperjs.com/demos/images/nature-1.jpg" />
         </SwiperSlide>
-        <SwiperSlide>
+        <SwiperSlide className={styles.swiperSlide}>
           <img src="https://swiperjs.com/demos/images/nature-2.jpg" />
         </SwiperSlide>
-        <SwiperSlide>
+        <SwiperSlide className={styles.swiperSlide}>
           <img src="https://swiperjs.com/demos/images/nature-3.jpg" />
         </SwiperSlide>
-        <SwiperSlide>
+        <SwiperSlide className={styles.swiperSlide}>
           <img src="https://swiperjs.com/demos/images/nature-4.jpg" />
         </SwiperSlide>
       </Swiper>
@@ -44,4 +45,4 @@ const Carousel = () => {
   );
 };
 
-export default Carousel;
+export default CarouselCube;

@@ -2,6 +2,7 @@ import React from 'react';
 import { Container, Image } from 'react-bootstrap';
 import { useParams } from 'react-router';
 import styles from './Tour.module.css';
+import Mapbox from '../../Components/Mapbox/Mapbox';
 // createdAt: "2022-07-27T11:37:41.943Z"
 // description: "Consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\nIrure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
 // difficulty: "medium"
@@ -29,11 +30,17 @@ const Tour = ({ data }) => {
   const tours = data.data.data;
   const tour = tours.find((e) => e.id === id);
   const { imageCover } = tour;
-  console.log(tour);
+  // console.log(process.env.REACT_APP_MAPBOX);
+  // console.log(tour);
+
   return (
-    <div className={styles.header}>
-      <img src={`/img/tours/${imageCover}`} alt="adsa"></img>
-      <p className={styles.center}>{tour.name}</p>
+    <div>
+      <div className={styles.header}>
+        <img src={`/img/tours/${imageCover}`} alt="adsa"></img>
+        <p className={styles.center}>{tour.name}</p>
+      </div>
+
+      <Mapbox tour={tour} />
     </div>
   );
 };

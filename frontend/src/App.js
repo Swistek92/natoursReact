@@ -14,6 +14,7 @@ import Tour from './Pages/Tour/Tour';
 import styles from './App.module.css';
 import Spinner from './Components/Spinner/Spinner';
 import host from './utilites/host';
+import 'mapbox-gl/dist/mapbox-gl.css';
 
 const API_URL = `${host()}tours`;
 
