@@ -9,11 +9,15 @@
 }
 
 .link {
+  margin-top: auto;
   color: black;
   text-decoration: none;
+  cursor: pointer;
+  margin: 10px;
 }
 
 .link:hover {
+  cursor: pointer;
   color: black;
   text-decoration: underline;
 }

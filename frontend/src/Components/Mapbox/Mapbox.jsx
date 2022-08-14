@@ -19,7 +19,7 @@ const Mapbox = ({ tour }) => {
       <Map
         mapboxAccessToken={process.env.REACT_APP_MAPBOX}
         style={{
-          width: '80vw',
+          width: '60vw',
           height: '60vh',
           borderRadius: '15px',
           border: '2px solid pink',

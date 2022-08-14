@@ -5,13 +5,19 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Logout from '../Logout/Logout';
+import { modalActions } from '../../store/modals-slice';
 
 const Header = () => {
+  const dispatch = useDispatch();
   const { user, isLoading, isError, isSuccess, message } = useSelector(
     (state) => state.user
   );
+
+  const showLogin = () => dispatch(modalActions.showLogin());
+  const showRegister = () => dispatch(modalActions.showRegister());
+
   // console.log(user.data.user);
   return (
     <div className={styles.header}>
@@ -37,18 +43,14 @@ const Header = () => {
                 </Link>
               </Nav.Link>
               {!user && (
-                <Nav.Link>
-                  <Link className={styles.link} to="/login">
-                    Login
-                  </Link>
-                </Nav.Link>
+                <h5 className={styles.link} onClick={showLogin}>
+                  Login
+                </h5>
               )}
               {!user && (
-                <Nav.Link>
-                  <Link className={styles.link} to="/register">
-                    Register
-                  </Link>
-                </Nav.Link>
+                <h5 className={styles.link} onClick={showRegister}>
+                  Register
+                </h5>
               )}
               {user && (
                 <Nav.Link>

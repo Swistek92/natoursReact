@@ -39,8 +39,9 @@ const Tour = ({ data }) => {
         <img src={`/img/tours/${imageCover}`} alt="adsa"></img>
         <p className={styles.center}>{tour.name}</p>
       </div>
-
-      <Mapbox tour={tour} />
+      <div className={styles.mapbox}>
+        <Mapbox tour={tour} />
+      </div>
     </div>
   );
 };
