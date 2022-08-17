@@ -1,44 +1,103 @@
 import React from 'react';
-import { Container, Image } from 'react-bootstrap';
+import { Col, Container, Image, Row } from 'react-bootstrap';
 import { useParams } from 'react-router';
 import styles from './Tour.module.css';
 import Mapbox from '../../Components/Mapbox/Mapbox';
-// createdAt: "2022-07-27T11:37:41.943Z"
-// description: "Consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\nIrure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
-// difficulty: "medium"
-// duration: 7
-// durationWeeks: 1
-// guides: (2) [{…}, {…}]
-// id: "5c88fa8cf4afda39709c2955"
-// imageCover: "tour-2-cover.jpg"
-// images: (3) ['tour-2-1.jpg', 'tour-2-2.jpg', 'tour-2-3.jpg']
-// locations: (4) [{…}, {…}, {…}, {…}]
-// maxGroupSize: 15
-// name: "The Sea Explorer"
-// price: 921920223
-// ratingQuantity: 0
-// ratingsAverage: 4.8
-// secretTour: false
-// slug: "the-sea-explorer"
-// startDates: (3) ['2021-06-19T09:00:00.000Z', '2021-07-20T09:00:00.000Z', '2021-08-18T09:00:00.000Z']
-// startLocation: {type: 'Point', coordinates: Array(2)}
-// summary: "Exploring the jaw-dropping US east coast by foot and by boat"
-// _id: "5c88fa8cf4afda39709c2955"
+import { BsClockHistory } from 'react-icons/bs';
+import { IconContext } from 'react-icons/lib';
+import { FaCalendarDay } from 'react-icons/fa';
+import { FiDollarSign } from 'react-icons/fi';
+
+import {
+  AiOutlineRise,
+  AiOutlineUsergroupAdd,
+  AiOutlineStar,
+} from 'react-icons/ai';
 
 const Tour = ({ data }) => {
   let { id } = useParams();
   const tours = data.data.data;
   const tour = tours.find((e) => e.id === id);
-  const { imageCover } = tour;
-  // console.log(process.env.REACT_APP_MAPBOX);
-  // console.log(tour);
+  const {
+    imageCover,
+    description,
+    name,
+    duration,
+    startDates,
+    difficulty,
+    maxGroupSize,
+    ratingsAverage,
+    guides,
+    price,
+  } = tour;
 
+  const date = new Date(startDates[0]).toLocaleString('en-us', {
+    month: 'long',
+    year: 'numeric',
+  });
   return (
     <div>
       <div className={styles.header}>
-        <img src={`/img/tours/${imageCover}`} alt="adsa"></img>
-        <p className={styles.center}>{tour.name}</p>
+        <img src={`/img/tours/${imageCover}`} alt="imgCover"></img>
+        <div className={styles.details}>
+          <p>{name}</p>
+          <p>
+            <BsClockHistory size="3rem" />
+            {duration} days
+          </p>
+        </div>
       </div>
+
+      <Row>
+        <Col className={styles.factsBox}>
+          <IconContext.Provider value={{ color: 'grey', size: '2rem' }}>
+            <div className={styles.facts}>
+              <h4>QUICK FACTS</h4>
+
+              <span>
+                <FaCalendarDay />
+                NEXT DATE: <b>{date.toUpperCase()}</b>
+              </span>
+              <span>
+                <AiOutlineRise />
+                DIFFICULTY: <b>{difficulty.toUpperCase()}</b>
+              </span>
+              <span>
+                <AiOutlineUsergroupAdd />
+                PARTICIPANTS: <b>{maxGroupSize}</b>
+              </span>
+              <span>
+                <AiOutlineStar />
+                RATING: <b>{ratingsAverage}</b>
+              </span>
+              <span>
+                <FiDollarSign />
+                PRICE: <b>{price}</b>
+              </span>
+
+              <h4 style={{ marginTop: '5vh' }}>TOUR GUIDES</h4>
+
+              {guides.map((e) => {
+                return (
+                  <span key={e.name}>
+                    <img
+                      style={{ height: '2rem', borderRadius: '50%' }}
+                      src={`/img/users/${e.photo}`}
+                      alt={e.name}
+                    ></img>{' '}
+                    <b>{e.role.toUpperCase()}</b>
+                    {e.name}
+                  </span>
+                );
+              })}
+            </div>
+          </IconContext.Provider>
+        </Col>
+        <Col>
+          <h4>About the {name} </h4>
+          <p>{description}</p>
+        </Col>
+      </Row>
       <div className={styles.mapbox}>
         <Mapbox tour={tour} />
       </div>

@@ -135,7 +135,7 @@ const User = () => {
   };
 
   return (
-    <div>
+    <div style={{ height: '100vh', marginTop: '10vh' }}>
       <div className="d-flex align-items-center justify-content-center mb-4">
         <img
           alt="da"

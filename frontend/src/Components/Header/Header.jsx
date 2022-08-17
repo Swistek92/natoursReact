@@ -23,7 +23,7 @@ const Header = () => {
     <div className={styles.header}>
       <Navbar
         style={{
-          backgroundColor: 'rgba(96, 95, 95, 0.9)',
+          backgroundColor: 'rgba(96, 95, 95, 1)',
         }}
         className="sticky-top"
         expand="lg"

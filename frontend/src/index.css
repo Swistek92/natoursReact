@@ -1,3 +1,19 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 body {
-  background-color: grey;
+  padding: 10px;
+  /* background-image: linear-gradient(
+    to right bottom,
+    rgb(203, 203, 203),
+    rgb(65, 65, 65)
+  ); */
+  background-color: antiquewhite;
+  font-family: 'Lato', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.7;
+  /* color: rgb(0, 0, 0); */
 }

@@ -19,13 +19,13 @@ const Mapbox = ({ tour }) => {
       <Map
         mapboxAccessToken={process.env.REACT_APP_MAPBOX}
         style={{
-          width: '60vw',
+          width: '100%',
           height: '60vh',
           borderRadius: '15px',
           border: '2px solid pink',
         }}
         initialViewState={{
-          zoom: 5,
+          zoom: 6,
           longitude: lng,
           latitude: lat,
         }}
@@ -48,7 +48,7 @@ const Mapbox = ({ tour }) => {
             </>
           );
         })}
-        <NavigationControl position="bottom-right" />
+        <NavigationControl position="bottom-left" />
         <FullscreenControl />
 
         <GeolocateControl />
