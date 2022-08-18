@@ -22,6 +22,7 @@ import TourImagesModal from './Components/Modals/TourImages/TourImagesModal';
 const API_URL = `${host()}tours`;
 
 function App() {
+  const itemsPerPage = 6;
   const [state, setState] = useLocalStorage('tours', []);
   const [loading, setLoading] = useState(false);
   const { showLogin, showRegister, showTourImage } = useSelector(
@@ -34,6 +35,7 @@ function App() {
         setLoading(true);
         const res = await axios.get(API_URL);
         setState(res.data);
+        console.log(res.data.data.data);
         setLoading(false);
       } catch (error) {
         console.log(error);
@@ -54,7 +56,10 @@ function App() {
       {showRegister && <Register />}
       <Container style={{ marginTop: '60px' }}>
         <Routes>
-          <Route path="/" element={<Main data={state} />} />
+          <Route
+            path="/"
+            element={<Main data={state} itemsPerPage={itemsPerPage} />}
+          />
           {/* <Route path="/login" element={<Login />} /> */}
           {/* <Route path="/register" element={<Register />} /> */}
           <Route path="/user" element={<User />} />
