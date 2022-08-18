@@ -8,11 +8,9 @@ import Map, {
 } from 'react-map-gl';
 const Mapbox = ({ tour }) => {
   const locations = Object.values(tour.locations);
-  console.log(tour);
   const [showPopup, setShowPopup] = useState(true);
   const [lng, setLng] = useState(locations[0].coordinates[0]);
   const [lat, setLat] = useState(locations[0].coordinates[1]);
-  // console.log(process.env.REACT_APP_MAPBOX);
 
   return (
     <>

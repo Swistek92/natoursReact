@@ -37,8 +37,9 @@
   font-size: 1.5rem;
   color: #fff;
   background-color: rgba(85, 85, 85, 0.6);
-  padding: 20px;
+  padding: 2rem;
   border-radius: 20%;
+  border: rgb(172, 155, 155) dashed 0.1rem;
 }
 
 .mapbox {

@@ -14,9 +14,13 @@ import {
   AiOutlineUsergroupAdd,
   AiOutlineStar,
 } from 'react-icons/ai';
+import { useDispatch } from 'react-redux';
+import { modalActions } from '../../store/modals-slice';
 
 const Tour = ({ data }) => {
   let { id } = useParams();
+  const dispatch = useDispatch();
+
   const tours = data.data.data;
   const tour = tours.find((e) => e.id === id);
   const {
@@ -36,9 +40,7 @@ const Tour = ({ data }) => {
     month: 'long',
     year: 'numeric',
   });
-  const showModal = () => {
-    console.log('showmodal');
-  };
+  const showModal = () => dispatch(modalActions.showTourImage(id));
 
   return (
     <div>
@@ -54,7 +56,7 @@ const Tour = ({ data }) => {
       </div>
 
       <Row className={styles.details}>
-        <Col className={styles.factsBox}>
+        <Col xs={12} md={6} className={styles.factsBox}>
           <IconContext.Provider value={{ color: 'grey', size: '2rem' }}>
             <div className={styles.facts}>
               <h4>QUICK FACTS</h4>
@@ -98,7 +100,7 @@ const Tour = ({ data }) => {
             </div>
           </IconContext.Provider>
         </Col>
-        <Col>
+        <Col xs={12} md={6}>
           <h4>About the {name} </h4>
           <p>{description}</p>
         </Col>

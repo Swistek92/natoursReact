@@ -3,6 +3,8 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   showLogin: false,
   showRegister: false,
+  showTourImage: false,
+  tourId: '',
 };
 
 export const modalSlice = createSlice({
@@ -24,6 +26,14 @@ export const modalSlice = createSlice({
     },
     hideRegister(state) {
       state.showRegister = false;
+    },
+    showTourImage(state, action) {
+      state.showTourImage = true;
+      state.tourId = action.payload;
+    },
+    hideTourImage(state) {
+      state.showTourImage = false;
+      state.tourId = '';
     },
   },
 });

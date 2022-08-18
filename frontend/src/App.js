@@ -18,12 +18,15 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import Login from './Components/Modals/Login/Login';
 import { useSelector } from 'react-redux';
 import Register from './Components/Modals/Register/Register';
+import TourImagesModal from './Components/Modals/TourImages/TourImagesModal';
 const API_URL = `${host()}tours`;
 
 function App() {
   const [state, setState] = useLocalStorage('tours', []);
   const [loading, setLoading] = useState(false);
-  const { showLogin, showRegister } = useSelector((state) => state.modal);
+  const { showLogin, showRegister, showTourImage } = useSelector(
+    (state) => state.modal
+  );
 
   useEffect(() => {
     const fetchData = async () => {
@@ -46,6 +49,7 @@ function App() {
   return (
     <Router>
       <Header className="sticky-top" />
+      {showTourImage && <TourImagesModal data={state} />}
       {showLogin && <Login />}
       {showRegister && <Register />}
       <Container style={{ marginTop: '60px' }}>

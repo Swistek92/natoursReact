@@ -8,7 +8,7 @@ import 'swiper/css/pagination';
 import styles from './styles.module.css';
 import axios from 'axios';
 import host from '../../../utilites/host';
-import { Navigation, Pagination } from 'swiper';
+import { Navigation } from 'swiper';
 import { useEffect } from 'react';
 import { Spinner } from 'react-bootstrap';
 import Card from 'react-bootstrap/Card';
@@ -26,7 +26,6 @@ const CarouselReview = ({ id }) => {
         setLoading(true);
         const reviews = await axios.get(`${API_URL}${id}/reviews`);
         setReviews(reviews.data.data.data);
-        console.log(reviews.data.data.data);
         setLoading(false);
       } catch (error) {
         console.log(error);
@@ -45,7 +44,7 @@ const CarouselReview = ({ id }) => {
         slidesPerView={2}
         spaceBetween={30}
         breakpoints={{
-          500: {
+          768: {
             slidesPerView: 3,
           },
         }}
