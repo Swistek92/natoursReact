@@ -41,9 +41,12 @@ const CarouselReview = ({ id }) => {
   return (
     <>
       <Swiper
-        slidesPerView={2}
+        slidesPerView={1}
         spaceBetween={30}
         breakpoints={{
+          576: {
+            slidesPerView: 2,
+          },
           768: {
             slidesPerView: 3,
           },
