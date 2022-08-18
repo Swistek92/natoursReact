@@ -37,12 +37,6 @@ const CarosuelTourImages = ({ tour }) => {
             </SwiperSlide>
           );
         })}
-        {/* <SwiperSlide className={styles.swiperSlide}>Slide 1</SwiperSlide>
-        <SwiperSlide className={styles.swiperSlide}>Slide 2</SwiperSlide>
-        <SwiperSlide className={styles.swiperSlide}>Slide 3</SwiperSlide>
-        <SwiperSlide className={styles.swiperSlide}>Slide 4</SwiperSlide>
-        <SwiperSlide className={styles.swiperSlide}>Slide 5</SwiperSlide>
-        <SwiperSlide className={styles.swiperSlide}>Slide 6</SwiperSlide> */}
       </Swiper>
     </>
   );
