@@ -33,7 +33,7 @@ const Mapbox = ({ tour }) => {
       >
         {locations.map((e, i) => {
           return (
-            <>
+            <div key={e.coordinates[0]}>
               <Popup
                 longitude={e.coordinates[0]}
                 latitude={e.coordinates[1]}
@@ -45,7 +45,7 @@ const Mapbox = ({ tour }) => {
                 longitude={e.coordinates[0]}
                 latitude={e.coordinates[1]}
               />
-            </>
+            </div>
           );
         })}
         <NavigationControl position="bottom-left" />

@@ -8,8 +8,8 @@ const router = express.Router({ mergeParams: true });
 // auth.protect => only for authenticate users
 // authController.restrictTo('user') => only for users
 
-router.use(authController.protect);
 router.route('/').get(reviewController.getAllRevievw);
+router.use(authController.protect);
 router
   .route('/')
   .post(reviewController.setTourUserIds, reviewController.createReviev);

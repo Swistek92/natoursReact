@@ -65,7 +65,9 @@ const Login = () => {
         </Modal.Header>
         <Modal.Body>
           {isLoading ? (
-            <Spinner />
+            <div className="d-flex align-items-center justify-content-center mb-4">
+              <Spinner />
+            </div>
           ) : (
             <div>
               <div className="d-flex align-items-center justify-content-center mb-4">

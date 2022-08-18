@@ -1,4 +1,5 @@
 .header {
+  cursor: pointer;
   margin-top: -2vh;
   height: auto;
   max-height: 70vh;
@@ -7,11 +8,18 @@
   position: relative;
   background-image: linear-gradient(
     to right bottom,
-    rgba(0, 0, 0, 0.5),
+    rgba(94, 78, 78, 0.5),
     rgb(0, 0, 0, 0.9)
   );
 
   clip-path: polygon(0 0, 100% 0, 100% 80%, 0 100%);
+}
+.header:hover {
+  background-image: linear-gradient(
+    to right bottom,
+    rgb(0, 0, 0, 0.9),
+    rgba(94, 78, 78, 0.5)
+  );
 }
 
 .header img {
@@ -21,29 +29,30 @@
   opacity: 0.3;
 }
 
-.details {
+.detailsImg {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: 1.5rem;
   color: #fff;
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(85, 85, 85, 0.6);
   padding: 20px;
+  border-radius: 20%;
 }
 
 .mapbox {
-  margin-top: 100px;
-  clip-path: polygon(0 10%, 100% 0, 100% 90%, 0 100%);
+  margin-top: 200px;
+  /* clip-path: polygon(0 10%, 100% 0, 100% 90%, 0 100%); */
 }
 
+.details {
+  margin-top: 5vh;
+}
 .factsBox {
   display: flex;
   justify-content: center;
-  /* background-color: rgb(168, 156, 156, 0.2); */
-  /* border-radius: 10px; */
-  /* height: 50vh; */
-  /* margin-top: -5vh; */
+
   font-size: 0.8rem;
 }
 
@@ -52,4 +61,14 @@
   /* justify-content: center; */
   flex-direction: column;
   justify-content: center;
+  /* margin-top: 5vh; */
+}
+
+.carousel {
+  margin-top: 5vh;
+  margin-bottom: -15vh;
+  padding: 0;
+  /* clip-path: polygon(0 10%, 100% 0, 100% 90%, 0 100%); */
+
+  height: auto;
 }

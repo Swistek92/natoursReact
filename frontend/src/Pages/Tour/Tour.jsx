@@ -3,6 +3,7 @@ import { Col, Container, Image, Row } from 'react-bootstrap';
 import { useParams } from 'react-router';
 import styles from './Tour.module.css';
 import Mapbox from '../../Components/Mapbox/Mapbox';
+import CarouselReview from '../../Components/Carousels/CarouselReview/CarouselReview';
 import { BsClockHistory } from 'react-icons/bs';
 import { IconContext } from 'react-icons/lib';
 import { FaCalendarDay } from 'react-icons/fa';
@@ -35,11 +36,15 @@ const Tour = ({ data }) => {
     month: 'long',
     year: 'numeric',
   });
+  const showModal = () => {
+    console.log('showmodal');
+  };
+
   return (
     <div>
-      <div className={styles.header}>
+      <div className={styles.header} onClick={showModal}>
         <img src={`/img/tours/${imageCover}`} alt="imgCover"></img>
-        <div className={styles.details}>
+        <div className={styles.detailsImg}>
           <p>{name}</p>
           <p>
             <BsClockHistory size="3rem" />
@@ -48,38 +53,38 @@ const Tour = ({ data }) => {
         </div>
       </div>
 
-      <Row>
+      <Row className={styles.details}>
         <Col className={styles.factsBox}>
           <IconContext.Provider value={{ color: 'grey', size: '2rem' }}>
             <div className={styles.facts}>
               <h4>QUICK FACTS</h4>
 
-              <span>
+              <p>
                 <FaCalendarDay />
                 NEXT DATE: <b>{date.toUpperCase()}</b>
-              </span>
-              <span>
+              </p>
+              <p>
                 <AiOutlineRise />
                 DIFFICULTY: <b>{difficulty.toUpperCase()}</b>
-              </span>
-              <span>
+              </p>
+              <p>
                 <AiOutlineUsergroupAdd />
                 PARTICIPANTS: <b>{maxGroupSize}</b>
-              </span>
-              <span>
+              </p>
+              <p>
                 <AiOutlineStar />
                 RATING: <b>{ratingsAverage}</b>
-              </span>
-              <span>
+              </p>
+              <p>
                 <FiDollarSign />
                 PRICE: <b>{price}</b>
-              </span>
+              </p>
 
               <h4 style={{ marginTop: '5vh' }}>TOUR GUIDES</h4>
 
               {guides.map((e) => {
                 return (
-                  <span key={e.name}>
+                  <p key={e.name}>
                     <img
                       style={{ height: '2rem', borderRadius: '50%' }}
                       src={`/img/users/${e.photo}`}
@@ -87,7 +92,7 @@ const Tour = ({ data }) => {
                     ></img>{' '}
                     <b>{e.role.toUpperCase()}</b>
                     {e.name}
-                  </span>
+                  </p>
                 );
               })}
             </div>
@@ -98,6 +103,9 @@ const Tour = ({ data }) => {
           <p>{description}</p>
         </Col>
       </Row>
+      <div className={styles.carousel}>
+        <CarouselReview id={id} />
+      </div>
       <div className={styles.mapbox}>
         <Mapbox tour={tour} />
       </div>

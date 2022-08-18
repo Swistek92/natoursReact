@@ -1,0 +1,24 @@
+.swiper {
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.swiperSlide {
+}
+
+.Card {
+  /* height: auto !important; */
+  background-color: azure;
+}
+
+.Card img {
+  height: 4.5rem;
+  border-radius: 50%;
+  margin: auto;
+}
+
+.avatar {
+  display: flex;
+  align-items: center;
+}
