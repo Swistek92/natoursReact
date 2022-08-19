@@ -24,11 +24,12 @@ const Main = ({ data, itemsPerPage }) => {
   const [active, setActive] = useState(1);
   const [filters, setFilters] = useState(filterObj);
   const [showFilters, setShowFilters] = useState(true);
-  let tours = data;
+  let tours = Array.from(data);
   let minPriceTours = 999999999999;
   let maxPriceTours = 0;
   let minDurationTours = 999999999;
   let maxDurationTours = 0;
+
   tours.forEach((e) => {
     if (minPriceTours > e.price) {
       minPriceTours = e.price;
