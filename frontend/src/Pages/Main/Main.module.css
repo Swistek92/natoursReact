@@ -5,4 +5,5 @@
 
 .paginationTop {
   margin-top: 12vh;
+  z-index: 0 !important;
 }

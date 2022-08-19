@@ -9,8 +9,8 @@ const TourImagesModal = ({ data }) => {
   const [show, setShow] = useState(true);
   const { tourId } = useSelector((state) => state.modal);
   const hideModal = () => dispatch(modalActions.hideTourImage());
-  const tours = data.data.data;
-  const tour = tours.find((e) => e.id === tourId);
+
+  const tour = data.find((e) => e.id === tourId);
 
   return (
     <>

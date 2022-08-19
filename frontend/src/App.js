@@ -34,8 +34,7 @@ function App() {
       try {
         setLoading(true);
         const res = await axios.get(API_URL);
-        setState(res.data);
-        console.log(res.data.data.data);
+        setState(res.data.data.data);
         setLoading(false);
       } catch (error) {
         console.log(error);

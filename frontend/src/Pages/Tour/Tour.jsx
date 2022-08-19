@@ -21,8 +21,7 @@ const Tour = ({ data }) => {
   let { id } = useParams();
   const dispatch = useDispatch();
 
-  const tours = data.data.data;
-  const tour = tours.find((e) => e.id === id);
+  const tour = data.find((e) => e.id === id);
   const {
     imageCover,
     description,
