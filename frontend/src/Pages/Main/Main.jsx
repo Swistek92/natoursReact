@@ -24,12 +24,13 @@ const Main = ({ data, itemsPerPage }) => {
   const [active, setActive] = useState(1);
   const [filters, setFilters] = useState(filterObj);
   const [showFilters, setShowFilters] = useState(true);
+  if (data.length < 1) return <Spinner />;
+  let numberOfPages = 1;
   let tours = Array.from(data);
   let minPriceTours = 999999999999;
   let maxPriceTours = 0;
   let minDurationTours = 999999999;
   let maxDurationTours = 0;
-
   tours.forEach((e) => {
     if (minPriceTours > e.price) {
       minPriceTours = e.price;
@@ -62,23 +63,24 @@ const Main = ({ data, itemsPerPage }) => {
       JSON.stringify(filters.difficulty).includes(e.difficulty)
     );
   }
-  if (filters.maxPrice > 0 && filters.maxPrice < filters.minPrice) {
-    console.log(typeof filters.minPrice);
+  if (
+    Number(filters.maxPrice) !== 0 &&
+    Number(filters.maxPrice) < Number(filters.minPrice)
+  ) {
     setFilters((prevState) => ({
       ...prevState,
-      maxPrice: Number(filters.minPrice) + 1,
+      maxPrice: Number(filters.maxPrice) + 100,
     }));
-    console.log('max price is bigger');
   }
-  if (filters.maxDuration > 0 && filters.maxDuration < filters.minDuration) {
+  if (
+    Number(filters.maxDuration) !== 0 &&
+    Number(filters.maxDuration) < Number(filters.minDuration)
+  ) {
     setFilters((prevState) => ({
       ...prevState,
       maxDuration: Number(filters.minDuration) + 1,
     }));
   }
-
-  if (data.length < 1) return <Spinner />;
-  let numberOfPages = 1;
 
   if (Number.isInteger(tours.length / itemsPerPage)) {
     numberOfPages = tours.length / itemsPerPage;
