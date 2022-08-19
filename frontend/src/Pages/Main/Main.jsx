@@ -100,7 +100,9 @@ const Main = ({ data, itemsPerPage }) => {
       </Pagination.Item>
     );
   }
-
+  if (tours.length < itemsPerPage && active !== 1) {
+    setActive(1);
+  }
   const indexOfLastPost = active * itemsPerPage;
   const indexOfFirstPost = indexOfLastPost - itemsPerPage;
   const currentPosts = tours.slice(indexOfFirstPost, indexOfLastPost);
@@ -211,14 +213,22 @@ const Main = ({ data, itemsPerPage }) => {
           <Button onClick={resetFilters}>Reset Filters</Button>
         </div>
       )}
+      {currentPosts.length < 1 && (
+        <>
+          <h1>please use less restrictive filters</h1>
+          <Button onClick={resetFilters}>Reset Filters</Button>
+        </>
+      )}
       {numberOfPages > 1 && (
         <PaginationElement className={styles.paginationTop} />
       )}
       <h1 className={styles.main}>Tours</h1>
       <Row md={2} xs={1} lg={3} className="g-3">
-        {currentPosts.map((tour) => {
-          return <Item key={tour.id} {...tour} />;
-        })}
+        {currentPosts.length >= 1 &&
+          currentPosts.map((tour) => {
+            console.log(currentPosts.length);
+            return <Item key={tour.id} {...tour} />;
+          })}
       </Row>
       {numberOfPages > 1 && <PaginationElement />}
     </>
