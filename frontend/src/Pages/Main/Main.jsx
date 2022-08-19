@@ -62,7 +62,7 @@ const Main = ({ data, itemsPerPage }) => {
       JSON.stringify(filters.difficulty).includes(e.difficulty)
     );
   }
-  if (filters.maxPrice < filters.minPrice) {
+  if (filters.maxPrice > 0 && filters.maxPrice < filters.minPrice) {
     console.log(typeof filters.minPrice);
     setFilters((prevState) => ({
       ...prevState,
@@ -70,7 +70,7 @@ const Main = ({ data, itemsPerPage }) => {
     }));
     console.log('max price is bigger');
   }
-  if (filters.maxDuration < filters.minDuration) {
+  if (filters.maxDuration > 0 && filters.maxDuration < filters.minDuration) {
     setFilters((prevState) => ({
       ...prevState,
       maxDuration: Number(filters.minDuration) + 1,
